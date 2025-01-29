@@ -9,7 +9,7 @@ namespace BankLibrary
     public abstract class Account
     {
         public string AccountNumber { get; private set; }
-        public string AccountHolder {  get; private set; }
+        public string AccountHolder { get; private set; }
         public decimal Balance { get; private set; }
         public Account(string accountNumber, string accountHolder, decimal balance)
         {
@@ -27,5 +27,14 @@ namespace BankLibrary
             if (amount < 0) { throw new ArgumentException("Withdraw amound must be positive"); }
             if (amount > Balance) { throw new InvalidCastException("Insufficient funds"); }
             Balance -= amount;
+        }
+
+        public static List<Account> Accounts { get; private set; }
+        public static void GenerateTestAccounts()
+        {
+            Accounts = new List<Account>();
+            Accounts.Add(new SavingsAccount("1001", "Alice", 2000, 0.04m));
+            Accounts.Add(new SavingsAccount("1002", "Bob", 1000, 0.03m));
+        }
     }
 }
